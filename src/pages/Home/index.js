@@ -1,5 +1,7 @@
 // Home page
 
+import { useEffect } from "react";
+
 // import { useFetchJsonAbort } from "@ivbrajkovic/react-hooks";
 
 // Material-UI
@@ -7,7 +9,10 @@
 import Box from "@material-ui/core/Box";
 
 // Product List
-import ProductList from "../../components/ProductList";
+// import ProductList from "../../components/ProductList";
+
+import { useStoreState } from "../../context";
+import { initStateAction } from "../../context/actions";
 
 // const storeId = process.env.REACT_APP_STORE_ID;
 // const baseUrl = process.env.REACT_APP_BASE_URL_API;
@@ -28,8 +33,17 @@ const HomePage = () => {
   //   }
   // );
 
+  const { products } = useStoreState();
+
+  useEffect(() => {
+    initStateAction(10);
+  }, []);
+
   return (
     <Box p={2}>
+      {Array.isArray(products) &&
+        products.map((product) => <div>{product}</div>)}
+
       <h3>Home page</h3>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur, vitae
@@ -45,7 +59,7 @@ const HomePage = () => {
       </p>
       {/* {error && <h3>{error}</h3>} */}
 
-      <ProductList />
+      {/* <ProductList /> */}
     </Box>
   );
 };
